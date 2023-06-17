@@ -12,11 +12,12 @@ const routes = [
     beforeEnter(to, from, next) {
       const store = useUserStore()
 
-      if (store.authenticated) {
-        next()
-      } else {
-        next('/login')
-      }
+      const userInfos = JSON.parse(localStorage.getItem('USER_INFOS'))
+
+      if (userInfos) store.authenticated = true
+
+      if (store.authenticated) next()
+      else next('/login')
     },
   },
   {
